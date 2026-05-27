@@ -39,9 +39,9 @@ az aks create \
   --load-balancer-sku standard \
   --enable-managed-identity \
   --network-plugin azure \
-  --enable-cluster-autoscaling \
   --min-count "${MIN_NODES}" \
   --max-count "${MAX_NODES}" \
+  --enable-cluster-autoscale \
   --node-vm-size "${VM_SIZE}" \
   --zones 1 2 3 \
   --generate-ssh-keys
@@ -108,10 +108,11 @@ echo "   helm repo add traefik https://helm.traefik.io/traefik"
 echo "   helm repo update"
 echo ""
 echo "2. Update Helm dependencies in helm-chart directory:"
-echo "   cd helm-chart && helm dependency update"
+echo "   cd ../helm-chart && helm dependency update"
 echo ""
 echo "3. Deploy CVAT using Helm:"
-echo "   helm install cvat . --namespace cvat --values azure-values.yaml"
+echo "   cd ../azure-deployment"
+echo "   helm install cvat ../helm-chart --namespace cvat --values azure-values.yaml"
 echo ""
 echo -e "${YELLOW}Cluster Information:${NC}"
 echo "Resource Group: ${RESOURCE_GROUP}"
